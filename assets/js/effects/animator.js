@@ -1,6 +1,26 @@
 
-//const easeTransitions = Object.create({});
-function easeTransitions() { }
+const easeTransitions = Object.create({});
+
+
+Object.defineProperties(easeTransitions, {
+	easeOutQuad: {
+		value: function(x) {
+			return 1 - (1 - x) * (1 - x);
+		},
+	},
+
+	easeInOutCubic: {
+		value: function(x) {
+			return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+		},
+	},
+
+	easeLinear: {
+		value: function(x) {
+			return x;
+		},
+	}
+});
 
 
 function Animate(duration, transition, keyframe) {
@@ -85,29 +105,7 @@ Object.defineProperties(Animate.prototype, {
 				else requestAnimationFrame(loop);
 			}
 	
-			loop(performance.now());
+			requestAnimationFrame(loop);
 		}
 	}
 });
-
-
-Object.defineProperties(easeTransitions, {
-	easeOutQuad: {
-		value: function(x) {
-			return 1 - (1 - x) * (1 - x);
-		},
-	},
-
-	easeInOutCubic: {
-		value: function(x) {
-			return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-		},
-	},
-
-	easeLinear: {
-		value: function(x) {
-			return x;
-		},
-	}
-});
-
